@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from .models import Student
+from .models import Student, Receipt
 from .utils import is_admin
 import os
 from flask import Blueprint, render_template, redirect, url_for, flash, request
@@ -16,6 +16,7 @@ student_bp = Blueprint('student', __name__, url_prefix='/student')
 @login_required
 def student_dashboard():
     return render_template('student/dashboard.html', student=current_user)
+
 
 @student_bp.route('/register', methods=['GET', 'POST'])
 @login_required
@@ -34,7 +35,6 @@ def register_student():
         flash('Student registered successfully!', 'success')
         return redirect(url_for('student.student_dashboard'))
 
-    
     return render_template('student/register.html')
 
 
@@ -47,8 +47,8 @@ def generate_id_card():
     return redirect(url_for('student.student_dashboard'))
 
 
-
 receipt_bp = Blueprint('receipt', __name__, url_prefix='/receipt')
+
 
 @receipt_bp.route('/issue', methods=['GET', 'POST'])
 @login_required

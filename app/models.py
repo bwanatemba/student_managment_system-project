@@ -2,6 +2,7 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 import random
+from app import db
 
 
 class User(UserMixin, db.Model):
@@ -30,8 +31,8 @@ class Student(db.Model):
         self.program = program
         self.student_number = generate_student_number()  # Implement this function
 
-    def generate_student_number():
-    return str(random.randint(1000000000, 9999999999))
+    def generate_student_number(self):
+        return str(random.randint(1000000000, 9999999999))
 
 
 class Receipt(db.Model):

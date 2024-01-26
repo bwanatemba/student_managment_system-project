@@ -1,9 +1,10 @@
 # app/admin.py
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required
+
+from . import db
 from .utils import is_admin
 from .models import Faculty
-
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -35,6 +36,7 @@ def add_faculty():
         return redirect(url_for('admin.add_faculty'))
 
     return render_template('admin/add_faculty.html')
+
 
 @admin_bp.route('/edit_faculty/<int:faculty_id>', methods=['GET', 'POST'])
 @login_required
